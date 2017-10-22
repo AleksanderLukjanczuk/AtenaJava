@@ -4,32 +4,61 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import objects.Person;
+import objects.Apple;
+import objects.Cigarettes;
+import objects.Goods;
+import objects.Milk;
+import objects.Orange;
+import objects.PersonPrivate;
+import objects.Piwo;
 import objects.Shop;
 
 public class Test {
 
 	public static void main(String[] args) {
-		Random rand = new Random();
 		Shop shop = new Shop();
-		List<Person> persons = new ArrayList<>();
-		persons.add(new Person("Aleks", "Wajda", 22));
-		persons.add(new Person("Wojtek", "Kruchy", 18));
-		persons.add(new Person("Tomek", "Rudy", 16));
+		List<PersonPrivate> persons = new ArrayList<>();
+		persons.add(new PersonPrivate("Aleks", "Wajda", 22));
+		persons.add(new PersonPrivate("Wojtek", "Kruchy", 48));
+		persons.add(new PersonPrivate("Tomek", "Rudy", 36));
 
-		shop.addBeer(rand.nextInt(20));
-		shop.sellBeer(persons.get(0));
+		List<PersonPrivate> youngPersons = new ArrayList<>();
+		youngPersons.add(new PersonPrivate("Jhon", "Wajda", 14));
+		youngPersons.add(new PersonPrivate("Den", "Kruchy", 10));
 
-		for (Person person : persons) {
-			shop.sellBeer(person, rand.nextInt(10));
-		}
+		List<Goods> shopStore = new ArrayList<>();
+//		shopStore.add(new Apple(generator(20), generator(10)));
+		shopStore.add(new Cigarettes(generator(20), generator(10)));
+		shopStore.add(new Milk(generator(20), generator(10)));
+		shopStore.add(new Orange(generator(20), generator(10)));
+		shopStore.add(new Piwo(generator(20), generator(10)));
 
-		shop.sellBeer(persons.get(1), 15);
+		shop.addGoods(shopStore);
 
-		shop.showBeerCount();
-		for (Person person : persons) {
-			System.out.printf("%s kupił %d\n", person.getName(), person.getBeerBought());
-		}
+		persons.forEach(person -> shop.sellGoods(generateAgeGood(5, false), person));
+		youngPersons.forEach(person -> shop.sellGoods(generateAgeGood(10, false), person));
+
+		shop.printStorageGoods();
 	}
 
+	private static List<Goods> generateAgeGood(Integer bound, Boolean checkAge) {
+		List<Goods> res = new ArrayList<>();
+		if (!checkAge) {
+			res.add(new Piwo(generator(bound), generator(10)));
+			res.add(new Cigarettes(generator(bound), generator(10)));
+		}
+		res.add(new Apple(generator(bound), generator(10)));
+		res.add(new Milk(generator(bound), generator(10)));
+		res.add(new Orange(generator(bound), generator(10)));
+		return res;
+	}
+
+	private static Integer generator(Integer bound) {
+		Random rand = new Random();
+		Integer res = 0;
+		while (res <= 0) {
+			res = rand.nextInt(bound);
+		}
+		return res;
+	}
 }

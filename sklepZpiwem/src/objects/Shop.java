@@ -1,64 +1,96 @@
 package objects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Shop {
 	private final String NAME = "Lidl ;)";
-	private Integer beer = Integer.valueOf(0);
+	private List<Goods> storage = new ArrayList<>();
+	private Boolean canToSell;
 
 	public Shop() {
+		printStorageGoods();
+	}
+
+	public void addGoods(List<Goods> goods) {
+		goods.forEach(obj -> {
+			if (storage.contains(obj)) {
+				Goods towar = storage.get(storage.indexOf(obj));
+				towar.setCount(towar.getCount() + obj.getCount());
+			} else {
+				storage.add(obj);
+			}
+			System.out.printf("Do sklepu dodano %d %s \t %d zł\n", obj.getCount(), obj.name(), obj.getPrice());
+		});
+	}
+
+	public void printStorageGoods() {
 		System.out.printf("Witamy w sklepie '%s'\n", NAME);
 		System.out.println("===========================");
+		this.storage.forEach(good -> System.out.printf("W sklepie zostało: %d\t%s\t%d zł\n", good.getCount(),
+				good.name(), good.getPrice()));
 	}
 
-	public void addBeer(Integer count) {
-		this.beer += count;
-		System.out.printf("Do sklepu dodano %d piwa\n", count);
+	public void sellGoods(List<Goods> goods, PersonPrivate person) {
+		System.out.printf("%s kupił:\n", person.getName());
+		goods.forEach(obj -> {
+			if (storage.contains(obj)) {
+				if (isCanToSell(obj, person)) {
+					Goods towar = storage.get(storage.indexOf(obj));
+					towar.setCount(towar.getCount() - obj.getCount());
+					System.out.printf("%d %s\n", obj.getCount(), obj.name());
+				}
+			} else {
+				System.err.printf(
+						"Drogi kliencie %s nie mogę sprzedać ci %s ponieważ nie mamy go w sklepie\n",
+						person.getName(), obj.name());
+			}
+		});
+		System.out.println();
 	}
 
-	public void showBeerCount() {
-		System.out.printf("W sklepie zostało %d piwa\n", this.beer);
-	}
-
-	public void sellBeer(Person person) {
-		sellBeer(person, 1);
-	}
-
-	public void sellBeer(Person person, int beerCount) {
+	public boolean isCanToSell(Goods good, PersonPrivate person) {
+		this.canToSell = true;
 		if (person == null) {
 			System.out.println("ERROR: person object is null!!!");
-			return;
+			return false;
 		}
-		if (!checkAge(person)) {
-			System.err.printf("Drogi kliencie %s nie mogę sprzedać ci piwa ponieważ masz %d lat\n", person.getName(),
-					person.getAge());
-			return;
+		if (good.checkAge() && !checkAge(person)) {
+			System.err.printf("Drogi kliencie %s nie mogę sprzedać ci %s ponieważ masz %d lat\n", person.getName(),
+					good.name(), person.getAge());
+			this.canToSell = false;
+			return false;
 		}
-		if (!checkBeerToSell(beerCount)) {
-			System.err.printf("Drogi kliencie %s nie mogę sprzedać ci piwa ponieważ chcesz kupić %d, a my mamy %d\n",
-					person.getName(), beerCount, beer);
-			return;
+		Goods objInStorage = storage.get(storage.indexOf(good));
+		if (checkCountToSell(objInStorage.getCount(), good.getCount()) < 0) {
+			System.err.printf("Drogi kliencie %s nie mogę sprzedać ci %s ponieważ chcesz kupić %d, a my mamy %d\n",
+					person.getName(), good.name(), good.getCount(), objInStorage.getCount());
+			this.canToSell = false;
+			return false;
 		}
-		this.beer -= beerCount;
-		person.addBeer(beerCount);
-		System.out.printf("Sprzedano %d piwa dla %s\n", beerCount, person.getName());
+		return this.canToSell;
 	}
 
-	public boolean checkAge(Person person) {
+	public boolean checkAge(PersonPrivate person) {
 		if (person == null || person.getAge() < 18) {
 			return false;
 		}
 		return true;
 	}
 
-	public boolean checkBeerToSell(Integer count) {
-		if (count != null) {
-			if (this.beer - count >= 0) {
-				return true;
-			}
-		}
-		return false;
+	public Integer checkCountToSell(Integer countInShoop, Integer countForBuy) {
+		return (countInShoop - countForBuy);
 	}
 
 	public String getName() {
 		return NAME;
+	}
+
+	public List<Goods> getStorage() {
+		return storage;
+	}
+
+	public void setStorage(List<Goods> storage) {
+		this.storage = storage;
 	}
 }
