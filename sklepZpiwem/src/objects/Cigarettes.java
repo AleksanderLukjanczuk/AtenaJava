@@ -1,12 +1,15 @@
 package objects;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Cigarettes implements Goods {
 
 	private final String NAME = "Cigaret";
 	private Integer count = 0;
-	private Integer price;
+	private BigDecimal price;
 
-	public Cigarettes(Integer count, Integer price) {
+	public Cigarettes(Integer count, BigDecimal price) {
 		super();
 		this.count = count;
 		this.price = price;
@@ -33,13 +36,13 @@ public class Cigarettes implements Goods {
 	}
 
 	@Override
-	public Integer getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
 	@Override
-	public void setPrice(Integer price) {
-		this.price = price;
+	public void setPrice(BigDecimal price) {
+		this.price = price.setScale(2, RoundingMode.HALF_UP);
 	}
 
 	@Override

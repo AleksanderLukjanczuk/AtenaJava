@@ -1,5 +1,7 @@
 package objects;
 
+import java.math.BigDecimal;
+
 public interface Goods {
 
 	public String name();
@@ -10,7 +12,7 @@ public interface Goods {
 
 	public Boolean checkAge();
 
-	public Integer getPrice();
+	public BigDecimal getPrice();
 
-	public void setPrice(Integer price);
+	public void setPrice(BigDecimal price);
 }

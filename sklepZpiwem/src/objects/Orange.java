@@ -1,11 +1,13 @@
 package objects;
 
+import java.math.BigDecimal;
+
 public class Orange implements Goods {
 	private final String NAME = "Orange";
 	private Integer count = 0;
-	private Integer price;
+	private BigDecimal price;
 
-	public Orange(Integer count, Integer price) {
+	public Orange(Integer count, BigDecimal price) {
 		super();
 		this.count = count;
 		this.price = price;
@@ -32,13 +34,13 @@ public class Orange implements Goods {
 	}
 
 	@Override
-	public Integer getPrice() {
-		return price;
+	public BigDecimal getPrice() {
+		return price.setScale(2, BigDecimal.ROUND_HALF_UP);
 	}
 
 	@Override
-	public void setPrice(Integer price) {
-		this.price = price;
+	public void setPrice(BigDecimal price) {
+		this.price = price.setScale(2, BigDecimal.ROUND_HALF_UP);
 	}
 
 	@Override
