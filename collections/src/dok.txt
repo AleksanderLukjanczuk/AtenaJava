@@ -1,0 +1,37 @@
+
+Java ma już około 20 lat, a klasyczne książki Caya Horstmanna opisują szczegółowo
+w dwóch tomach o łącznej objętości ponad 2000 stron nie tylko język, ale też wszystkie dostarczane
+z nim biblioteki i mnóstwo różnic pomiędzy wersjami. Jednak Java 8 zmienia wszystko.
+Wiele starych idiomów Javy przestaje być potrzebne i są dużo szybsze, łatwiejsze ścieżki,
+by nauczyć się tego języka. W tej książce pokazuję Ci „najlepsze części” nowoczesnej Javy,
+dzięki czemu możesz szybko zacząć z nich korzystać.
+Tak jak w moich innych książkach dla „niecierpliwych”, szybko przechodzę do rzeczy, bez
+wynurzeń na temat wyższości jednego paradygmatu nad innym pokazując Ci, co musisz
+wiedzieć, by rozwiązywać problemy programistyczne. Prezentuję też informacje w małych
+porcjach, ułożone w taki sposób, by łatwo było do nich dotrzeć w razie potrzeby.
+Jeśli dobrze znasz jakiś inny język programowania, taki jak C++, JavaScript, Objective C,
+PHP lub Ruby, dzięki tej książce szybko dowiesz się, jak stać się kompetentnym programistą
+Java. Omawiam wszystkie niezbędne deweloperowi aspekty języka Java, w tym potężne
+wyrażenia lambda oraz wprowadzone w Java 8 strumienie. Powiem, gdzie szukać dodatkowych
+informacji na temat przestarzałych koncepcji, które możesz spotkać w istniejącym
+kodzie, a w które się nie zagłębiam.
+Najważniejszym powodem korzystania z Javy jest konieczność programowania równoległego.
+Dzięki algorytmom i bezpiecznym dla wątków strukturom danych, dostępnym w bibliotece
+języka Java, kompletnie zmienił się sposób, w jaki programiści aplikacji radzą sobie z programowaniem
+współbieżnym. Prezentuję tutaj świeże spojrzenie, pokazując, jak wykorzystywać
+potężne mechanizmy dostępne w bibliotekach zamiast podatnych na błędy, niskopoziomowych
+konstrukcji.
+Tradycyjne książki na temat języka Java skupiają się na programowaniu interfejsu użytkownika
+— obecnie jednak niewielu deweloperów tworzy interfejsy użytkownika na komputery
+stacjonarne. Jeśli zamierzasz używać Javy do tworzenia oprogramowania działającego
+po stronie serwera lub w systemie Android, będziesz mógł korzystać efektywnie z tej książki
+bez rozpraszania się kodem GUI aplikacji desktopowych.
+I wreszcie: ta książka jest napisana dla programistów aplikacji, a nie dla ekspertów systemowych
+ani na potrzeby kursu dla studentów. Książka omawia problemy, z którymi muszą
+zmagać się programiści aplikacji, takie jak logowanie i praca z plikami — ale nie będziesz
+się uczył, jak ręcznie implementować listę powiązaną lub jak pisać serwer internetowy. Mam
+nadzieję, że spodoba Ci się takie dynamiczne wprowadzenie do nowoczesnej Javy i że uczyni
+to Twoją pracę z językiem Java produktywną i przyjemną.
+Jeśli znajdziesz błędy lub masz sugestie, co można poprawić, zajrzyj, proszę, na stronę
+http://helion.pl/user/opinie/jav8pd_ebook i napisz komentarz. Znajdziesz tam też odnośnik
+do pliku zawierającego wszystkie przykłady kodu wykorzystane w tej książce.
