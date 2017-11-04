@@ -15,12 +15,11 @@ public class Main {
 	private static Map<String, Integer> words = new HashMap<>();
 
 	public static void main(String[] args) throws FileNotFoundException {
-		String filePath = "D:\\eclipse-workspace\\github\\AtenaJava\\collections\\src\\dok.txt";
+		String filePath = "D:\\Atena\\JavaAcademy\\AtenaJava\\collections\\src\\dok.txt";
 		countWordsInFile(filePath);
 
-		Map<String, Integer> sorted = words.entrySet().stream()
-				.sorted(Map.Entry.comparingByValue());
-		sorted.keySet().forEach(key -> System.out.printf("%10s\t%s\r\n", key, sorted.get(key)));
+		Stream<Map.Entry<String, Integer>> sorted = words.entrySet().stream().sorted(Map.Entry.comparingByValue());
+		sorted.forEach(key -> System.out.printf("%10s\t%s\r\n", key.getKey(), key.getValue()));
 	}
 
 	public static void countWordsInFile(String filePath) throws FileNotFoundException {
@@ -33,8 +32,10 @@ public class Main {
 	}
 
 	private static void putToMap(String str) {
-		str = (!str.trim().isEmpty() ? str.replaceAll("[^a-zę€óąśłżźćńA-ZĘ€ÓĄŚŁŻŹĆŃ0-9]", "") : str.trim());
-		if (str.trim().isEmpty())
+		str = (!str.isEmpty() && !str.startsWith("http")
+				? str.replaceAll("[^a-zę€óąśłżźćńA-ZĘ€ÓĄŚŁŻŹĆŃ0-9]", "")
+				: str.trim());
+		if (str.isEmpty())
 			return;
 		if (words.containsKey(str)) {
 			words.put(str, words.get(str) + 1);
