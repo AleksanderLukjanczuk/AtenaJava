@@ -44,11 +44,16 @@ public abstract class Shop {
 		System.out.printf("%s kupił:\n", person.getName());
 		goods.forEach(obj -> {
 			if (storage.contains(obj)) {
-				if (isCanToSell(obj, person)) {
-					Goods towar = storage.get(storage.indexOf(obj));
-					obj.setPrice(promocja(towar));
-					towar.setCount(towar.getCount() - obj.getCount());
-					System.out.printf("\t%d %s %.2f zł\r\n", obj.getCount(), obj.name(), obj.getPrice());
+				try {
+					if (isCanToSell(obj, person)) {
+						Goods towar = storage.get(storage.indexOf(obj));
+						obj.setPrice(promocja(towar));
+						towar.setCount(towar.getCount() - obj.getCount());
+						System.out.printf("\t%d %s %.2f zł\r\n", obj.getCount(), obj.name(), obj.getPrice());
+					}
+				} catch (AgeException e) {
+//					e.printStackTrace();
+					System.out.println(e.getLocalizedMessage());
 				}
 			} else {
 				System.err.printf("\tDrogi kliencie %s nie mogę sprzedać ci %s ponieważ nie mamy go w sklepie\r\n",
@@ -58,17 +63,18 @@ public abstract class Shop {
 		System.out.println();
 	}
 
-	public boolean isCanToSell(Goods good, PersonPrivate person) {
+	public boolean isCanToSell(Goods good, PersonPrivate person) throws AgeException {
 		this.canToSell = true;
 		if (person == null) {
 			System.out.println("ERROR: person object is null!!!");
 			return false;
 		}
 		if (good.checkAge() && !checkAge(person)) {
-			System.err.printf("\tDrogi kliencie %s nie mogę sprzedać ci %s ponieważ masz %d lat\r\n", person.getName(),
-					good.name(), person.getAge());
+//			System.err.printf("\tDrogi kliencie %s nie mogę sprzedać ci %s ponieważ masz %d lat\r\n", person.getName(),
+//					good.name(), person.getAge());
 			this.canToSell = false;
-			return false;
+			throw new AgeException(person);
+			// return false;
 		}
 		Goods objInStorage = storage.get(storage.indexOf(good));
 		if (checkCountToSell(objInStorage.getCount(), good.getCount()) < 0) {
