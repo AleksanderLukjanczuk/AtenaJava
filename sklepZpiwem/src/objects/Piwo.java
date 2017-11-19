@@ -2,6 +2,7 @@ package objects;
 
 import java.math.BigDecimal;
 
+@CheckAge
 public class Piwo implements Goods {
 	private final String NAME = "Piwo";
 	private Integer count = 0;

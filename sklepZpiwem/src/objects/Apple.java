@@ -3,6 +3,7 @@ package objects;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+
 public class Apple implements Goods {
 	private final String NAME = "Apple";
 	private Integer count = 0;

@@ -10,6 +10,7 @@ public interface Goods {
 
 	public void setCount(Integer count);
 
+	@Deprecated
 	public Boolean checkAge();
 
 	public BigDecimal getPrice();

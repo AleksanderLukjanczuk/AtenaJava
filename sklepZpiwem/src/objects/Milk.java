@@ -3,6 +3,7 @@ package objects;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@CheckAge(age=50)
 public class Milk implements Goods {
 	private final String NAME = "Milk";
 	private Integer count = 0;

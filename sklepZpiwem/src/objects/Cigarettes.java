@@ -3,6 +3,7 @@ package objects;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@CheckAge
 public class Cigarettes implements Goods {
 
 	private final String NAME = "Cigaret";

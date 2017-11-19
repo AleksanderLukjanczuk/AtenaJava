@@ -7,7 +7,7 @@ public class AgeException extends Exception {
 		super("Osoba jest nie pełnoletnia!");
 	}
 
-	public AgeException(Person person) {
-		super("Osoba jest nie pełnoletnia! " + person.toString());
+	public AgeException(Person person, Goods good) {
+		super("Osoba jest nie pełnoletnia! Nie moge sprzedać: " + good.name() + ", " + person.toString());
 	}
 }

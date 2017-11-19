@@ -1,8 +1,10 @@
 package objects;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 public abstract class Shop {
 	private String name = "sklep no name";
@@ -15,11 +17,21 @@ public abstract class Shop {
 		printStorageGoods();
 	}
 
+	public UnaryOperator<BigDecimal> modify() {
+		int month = LocalDate.now().getMonthValue();
+		if (month % 2 == 0) {
+			return item -> item.multiply(BigDecimal.valueOf(0.9));
+		} else {
+			return item -> item.multiply(BigDecimal.valueOf(1.05));
+		}
+	}
+
 	public void addGoods(List<Goods> goods) {
 		goods.forEach(obj -> {
 			if (storage.contains(obj)) {
 				Goods towar = storage.get(storage.indexOf(obj));
 				towar.setCount(towar.getCount() + obj.getCount());
+				towar.setPrice(modify().apply(towar.getPrice()));
 			} else {
 				storage.add(obj);
 			}
@@ -52,7 +64,7 @@ public abstract class Shop {
 						System.out.printf("\t%d %s %.2f zł\r\n", obj.getCount(), obj.name(), obj.getPrice());
 					}
 				} catch (AgeException e) {
-//					e.printStackTrace();
+					// e.printStackTrace();
 					System.out.println(e.getLocalizedMessage());
 				}
 			} else {
@@ -69,13 +81,14 @@ public abstract class Shop {
 			System.out.println("ERROR: person object is null!!!");
 			return false;
 		}
-		if (good.checkAge() && !checkAge(person)) {
-//			System.err.printf("\tDrogi kliencie %s nie mogę sprzedać ci %s ponieważ masz %d lat\r\n", person.getName(),
-//					good.name(), person.getAge());
+
+		CheckAge age = good.getClass().getAnnotation(CheckAge.class);
+		if (age != null && !checkAge(person, age.age())) {
 			this.canToSell = false;
-			throw new AgeException(person);
+			throw new AgeException(person, good);
 			// return false;
 		}
+
 		Goods objInStorage = storage.get(storage.indexOf(good));
 		if (checkCountToSell(objInStorage.getCount(), good.getCount()) < 0) {
 			System.err.printf("\tDrogi kliencie %s nie mogę sprzedać ci %s ponieważ chcesz kupić %d, a my mamy %d\r\n",
@@ -86,8 +99,8 @@ public abstract class Shop {
 		return this.canToSell;
 	}
 
-	public boolean checkAge(PersonPrivate person) {
-		if (person == null || person.getAge() < 18) {
+	public boolean checkAge(PersonPrivate person, int age) {
+		if (person == null || person.getAge() < age) {
 			return false;
 		}
 		return true;
