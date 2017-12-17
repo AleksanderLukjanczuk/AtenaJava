@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>pl.atena.akademia.polisa</groupId>
+    <artifactId>polisa-app</artifactId>
+    <version>0.0.1-app</version>
+  </parent>
+  <artifactId>polisa-service</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>pl.atena.akademia.polisa</groupId>
+  		<artifactId>polisa-domain</artifactId>
+  		<version>0.0.1-app</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>pl.atena.akademia.polisa</groupId>
+  		<artifactId>polisa-core</artifactId>
+  		<version>0.0.1-app</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>pl.atena.akademia.polisa</groupId>
+  		<artifactId>polisa-dao</artifactId>
+  		<version>0.0.1-app</version>
+  	</dependency>
+  </dependencies>
+</project>
